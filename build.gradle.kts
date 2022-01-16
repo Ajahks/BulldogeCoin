@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-    implementation("junit:junit:4.13.1")
-    implementation("org.mockito:mockito-core:4.2.0")
+    implementation("junit:junit:4.13.2")
+    implementation("io.mockk:mockk:1.12.2")
     testImplementation(kotlin("test"))
 }
 

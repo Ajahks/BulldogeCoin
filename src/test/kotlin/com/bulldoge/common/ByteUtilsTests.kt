@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test
 
 class ByteUtilsTests {
 
-    val unit = ByteUtils()
-
     @Test
     fun `when long is encoded, verify that the same long can be decoded`() {
         val myLong = 1234L

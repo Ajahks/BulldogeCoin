@@ -1,27 +1,27 @@
 package com.bulldoge.blockChain
 
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.junit.jupiter.api.extension.ExtendWith
 import java.util.Date
 
+@ExtendWith(MockKExtension::class)
 class BlockTests {
 
-    @Mock
+    @MockK
     private lateinit var mockTransaction1: Transaction
 
-    @Mock
+    @MockK
     private lateinit var mockTransaction2: Transaction
 
     @BeforeEach
     fun setup() {
-        MockitoAnnotations.openMocks(this).close()
-
-        Mockito.`when`(mockTransaction1.toByteArray()).thenReturn("mockTransaction1".toByteArray())
-        Mockito.`when`(mockTransaction2.toByteArray()).thenReturn("mockTransaction2".toByteArray())
+        every { mockTransaction1.toByteArray() } returns "mockTransaction1".toByteArray()
+        every { mockTransaction2.toByteArray() } returns "mockTransaction2".toByteArray()
     }
 
     @Test
