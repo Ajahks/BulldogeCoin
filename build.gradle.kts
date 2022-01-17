@@ -5,7 +5,7 @@ plugins {
     application
 }
 
-group = "me.epicd"
+group = "ajahks.bulldoge"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-    implementation("junit:junit:4.13.2")
     implementation("io.mockk:mockk:1.12.2")
     testImplementation(kotlin("test"))
 }
