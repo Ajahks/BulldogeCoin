@@ -25,7 +25,7 @@ class BlockTests {
     }
 
     @Test
-    fun `Given two transactions with the same fields when calculateHash is called, verify that the hash is the same`() {
+    fun `given two transactions with the same fields when calculateHash is called, verify that the hash is the same`() {
         val block1 = Block(
             previousHash = "prevHash".toByteArray(),
             hash = "hash".toByteArray(),
@@ -46,7 +46,7 @@ class BlockTests {
     }
 
     @Test
-    fun `Given two transactions with different hash when calculateHash is called, verify that the hash is still the same`() {
+    fun `given two transactions with different hash when calculateHash is called, verify that the hash is still the same`() {
         val block1 = Block(
             previousHash = "prevHash".toByteArray(),
             hash = "hash1".toByteArray(),
@@ -67,7 +67,7 @@ class BlockTests {
     }
 
     @Test
-    fun `Given two transactions with different previous hash when calculateHash is called, verify that the hash is different`() {
+    fun `given two transactions with different previous hash when calculateHash is called, verify that the hash is different`() {
         val block1 = Block(
             previousHash = "prevHash1".toByteArray(),
             hash = "hash".toByteArray(),
@@ -88,7 +88,7 @@ class BlockTests {
     }
 
     @Test
-    fun `Given two transactions with different timestamp when calculateHash is called, verify that the hash is different`() {
+    fun `given two transactions with different timestamp when calculateHash is called, verify that the hash is different`() {
         val block1 = Block(
             previousHash = "prevHash".toByteArray(),
             hash = "hash".toByteArray(),
@@ -109,7 +109,7 @@ class BlockTests {
     }
 
     @Test
-    fun `Given two transactions with different transactions when calculateHash is called, verify that the hash is different`() {
+    fun `given two transactions with different transactions when calculateHash is called, verify that the hash is different`() {
         val block1 = Block(
             previousHash = "prevHash".toByteArray(),
             hash = "hash".toByteArray(),
@@ -130,7 +130,7 @@ class BlockTests {
     }
 
     @Test
-    fun `Given two transactions with different nonce value when calculateHash is called, verify that the hash is different`() {
+    fun `given two transactions with different nonce value when calculateHash is called, verify that the hash is different`() {
         val block1 = Block(
             previousHash = "prevHash".toByteArray(),
             hash = "hash".toByteArray(),

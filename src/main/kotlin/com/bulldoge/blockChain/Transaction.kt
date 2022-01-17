@@ -35,12 +35,22 @@ class Transaction(
     }
 
     fun signTransaction(keyPair: KeyPair) {
-        verifyPublicKeyIsOwnedBySender(fromAddress.publicKey)
+        verifyPublicKeyIsOwnedBySender(keyPair.public)
 
         val encryptCipher = Cipher.getInstance("RSA")
         encryptCipher.init(Cipher.ENCRYPT_MODE, keyPair.private)
 
         signature = encryptCipher.doFinal(hash)
+    }
+
+    fun verifyTransaction(): Boolean {
+        if(signature == null) {
+            return false
+        }
+
+        val decryptCipher = Cipher.getInstance("RSA")
+        decryptCipher.init(Cipher.DECRYPT_MODE, fromAddress.publicKey)
+        return decryptCipher.doFinal(signature).contentEquals(hash)
     }
 
     private fun verifyPublicKeyIsOwnedBySender(publicKey: PublicKey) {

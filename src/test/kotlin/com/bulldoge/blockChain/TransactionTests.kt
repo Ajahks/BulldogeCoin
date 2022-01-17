@@ -10,8 +10,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.security.KeyPair
+import java.security.KeyPairGenerator
 import java.security.PublicKey
 import java.util.Date
+
 
 @ExtendWith(MockKExtension::class)
 class TransactionTests {
@@ -41,7 +43,7 @@ class TransactionTests {
     }
 
     @Test
-    fun `Given valid transaction when toByteArray is called, verify that byteArray is of fromAddress, toAddress, amount in that order`() {
+    fun `given valid transaction when toByteArray is called, verify that byteArray is of fromAddress, toAddress, amount in that order`() {
         val byteArray = testTransaction.toByteArray()
         val hash = testTransaction.calculateHash()
         val expectedBytes = combinedString.toByteArray(Charsets.UTF_8) + ByteUtils.longToBytes(timestamp.time) + hash
@@ -50,10 +52,12 @@ class TransactionTests {
     }
 
     @Test
-    fun `Given signing with an invalid publicKey in the key pair, verify that exception is thrown`() {
+    fun `given signing with an invalid publicKey in the key pair, verify that exception is thrown`() {
         val mockKeyPair = mockk<KeyPair>()
         val mockPublicKey = mockk<PublicKey>()
         val mockOtherPublicKey = mockk<PublicKey>()
+
+        Assertions.assertTrue(mockPublicKey != mockOtherPublicKey)
 
         every { mockKeyPair.public } returns mockPublicKey
         every { testTransaction.fromAddress.publicKey } returns mockOtherPublicKey
@@ -61,5 +65,22 @@ class TransactionTests {
         Assertions.assertThrows(RuntimeException::class.java) {
             testTransaction.signTransaction(mockKeyPair)
         }
+    }
+
+    @Test
+    fun `given signing with a valid publicKey in the key pair, verify that signature is valid`() {
+        val generator = KeyPairGenerator.getInstance("RSA")
+        generator.initialize(1024)
+        val keyPair = generator.genKeyPair()
+
+        every { testTransaction.fromAddress.publicKey } returns keyPair.public
+
+        testTransaction.signTransaction(keyPair)
+        Assertions.assertTrue(testTransaction.verifyTransaction())
+    }
+
+    @Test
+    fun `given an unsigned transaction when verifyTransaction is called, verify that false is returned`() {
+        Assertions.assertFalse(testTransaction.verifyTransaction())
     }
 }
